@@ -4,8 +4,6 @@ const app = express()
 const userRouter = require('./routes/userRouter')
 const mongoose = require('mongoose')
 
-app.use('/user', userRouter)
-
 mongoose.connect(
   process.env.MONGO_CONNERCTION_URL,
   {
@@ -17,6 +15,8 @@ mongoose.connect(
     else console.log('Mongo connected')
   }
 )
+
+app.use('/user', express.json(), userRouter)
 
 app.listen(process.env.PORT, () => {
   console.log('Server Running')
